@@ -21,21 +21,26 @@ module.exports = {
         filename: "index.html",
       template:"./src/test.html"}
       )],
-      module: {
-        rules: [
+
+    plugins: [new MiniCssExtractPlugin()],
+    module: {
+      rules: [
         {
           test: /\.css$/i,
-        //use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-          use: ["style-loader","css-loader"],
+          //方法一：使用插件提出css文件
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
+          //方法二：使用loader引入css
+          //use: ["style-loader","css-loader"],
           //style-loader 将style标签加入head;css-loader只是将style引入js
         },
+      ],
+    },
+    optimization:
+     {
+        minimizer: [
+          new CssMinimizerPlugin(),
         ],
-      //   optimization: {
-      //     // minimizer: [
-      //     //   new CssMinimizerPlugin(),
-      //     // ],
-      //     minimize: true,
-      //  },
+         minimize: true,
       },
   };
 
