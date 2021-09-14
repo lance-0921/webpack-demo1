@@ -4,7 +4,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
 const path = require('path')
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: "./src/index.js",
     devtool: 'inline-source-map',
     performance: {
@@ -18,29 +18,22 @@ module.exports = {
       filename: "[name].[contenthash].js", 
       },
       plugins: [new HtmlWebpackPlugin({
-        filename: "index.html",
+        filename: "index.[contenthash].html",
       template:"./src/test.html"}
       )],
 
-    plugins: [new MiniCssExtractPlugin()],
+
     module: {
       rules: [
         {
           test: /\.css$/i,
-          //方法一：使用插件提出css文件
-          use: [MiniCssExtractPlugin.loader, "css-loader"],
+         
           //方法二：使用loader引入css
-          //use: ["style-loader","css-loader"],
+          use: ["style-loader","css-loader"],
           //style-loader 将style标签加入head;css-loader只是将style引入js
         },
       ],
     },
-    optimization:
-     {
-        minimizer: [
-          new CssMinimizerPlugin(),
-        ],
-         minimize: true,
-      },
+    
   };
 
