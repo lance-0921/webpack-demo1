@@ -1,28 +1,15 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
-const path = require('path')
+const base = require('./webpack.config.base.js')
 
 module.exports = {
+  ...base,
     mode: 'development',
-    entry: "./src/index.js",
     devtool: 'inline-source-map',
-    performance: {
-      "maxEntrypointSize":10000000,
-      "maxAssetSize":30000000,
-    },
     devServer: {
       static: './dist',
     },
-    output: {
-      filename: "[name].[contenthash].js", 
-      },
-      plugins: [new HtmlWebpackPlugin({
-        filename: "index.[contenthash].html",
-      template:"./src/test.html"}
-      )],
-
-
     module: {
       rules: [
         {
